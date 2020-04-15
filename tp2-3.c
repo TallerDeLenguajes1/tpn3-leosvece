@@ -14,7 +14,7 @@ void anio(compu *PC, int cantidad);
 void velocidad(compu *PC, int cantidad);
 
 int main(){
-	int i, cantidad, cont=0,x=1;
+	int i, cantidad, cont=0,x=0;
 	int busqueda= 0;
 	char a[10];
 	compu *PC;
@@ -41,28 +41,29 @@ int main(){
 	
 	printf("¿desea buscar algo del inventario? \n1)SI	2)NO\n");
 	scanf("%d",&x);
-	fflush(stdin);
 	
-	do{
-		system("cls");
-		printf("seleccione:\n1- Busqueda por lista \n2- Busqueda por antiguedad \n3- Busqueda velocidad\n");
-		scanf("%d",&busqueda);
-		system("cls");
-		if(busqueda==1){
-			lista(PC,cantidad);
-		}
-		else if(busqueda==2){
+	//if x==1{ 
+		while(x==1){
 			system("cls");
-			anio(PC,cantidad);
-		}
-		else{
+			printf("seleccione:\n1- Busqueda por lista \n2- Busqueda por antiguedad \n3- Busqueda velocidad\n");
+			scanf("%d",&busqueda);
 			system("cls");
-			velocidad(PC,cantidad);
+			if(busqueda==1){
+				lista(PC,cantidad);
+			}
+			else if(busqueda==2){
+				system("cls");
+				anio(PC,cantidad);
+			}
+			else{
+				system("cls");
+				velocidad(PC,cantidad);
+			}
+			
+			puts("¿desea buscar otro cosa?\n1)SI	 2)no\n");
+			scanf("%d",&x);
 		}
-		
-		puts("¿desea buscar otro cosa?\n1)SI	 2)no\n");
-		scanf("%d",&x);
-	}while(x==1);
+//	}
 	
     return 0;
 }
@@ -85,7 +86,7 @@ void cargar(compu *PC, int c){
 		
 		strcpy(a,tipos[selec-1]);
 			
-	}while(selec <1 || selec >= 7);	
+	}while(selec <1 || selec > 6);	
 	
 	strcpy(PC[c].tipo,a);
 	printf("\nvelocidad del procesador:");
