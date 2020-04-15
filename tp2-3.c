@@ -79,13 +79,13 @@ void cargar(compu *PC, int c){
 		}
 		scanf("%d",&selec);
 		
-		if (selec <0 && selec > 7){
+		if (selec <= 0 || selec > 6){
 			printf("seleccion incorrecta");
 		}
 		
 		strcpy(a,tipos[selec-1]);
 			
-	}while(selec <1 && selec > 7);	
+	}while(selec <1 || selec >= 7);	
 	
 	strcpy(PC[c].tipo,a);
 	printf("\nvelocidad del procesador:");
