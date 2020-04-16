@@ -3,7 +3,7 @@
 #include<time.h>
 
 int main(){
-    int fil =15, col,i,j;
+    int fil =15, col,i,j,a=0;
     int contPar=0, contImp=0, contImpd=0,contPard=0;
     int *vec;
     srand(time(NULL));
@@ -21,6 +21,10 @@ int main(){
             mt[i][j] =100+rand() % (1000 - 100);
             if ( mt[i][j]%2==0) {
                 contPar++;
+                if(a<15){
+				*(vec+a)= mt[i][j];
+                a++;
+				}
             }
             else{
                 contImp++;
@@ -35,19 +39,10 @@ int main(){
     printf("\n\n numeros pares= %d\n numeros impares= %d", contPar,contImp);
     
     
-    
     printf("\n\n");
     for ( i = 0; i < 15; i++){
-            vec[i] =100+rand() % (1000 - 100);
-            if ( vec[i]%2==0) {
-                contPard++;
-            }
-            else{
-                contImpd++;
-            }
             printf("|%d|", vec[i]);
     }
-	printf("\n\n numeros pares= %d\n numeros impares= %d\n", contPard,contImpd);
 
     system("pause");
     return 0;
