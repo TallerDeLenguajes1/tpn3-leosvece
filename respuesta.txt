@@ -1,1 +1,0 @@
-f) no puedo ver la rama que creen con branch por que estoy en la rama principal
