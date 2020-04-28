@@ -64,8 +64,8 @@ void cargarcliente(cliente **C, int per){
 	c[per].CantidadProductosAPedir=1+ rand()% 5;
 
 }
-
-void cargarproductos(cliente **C, int per){
+/*
+void cargarproductos(cliente **C, int per){ //prueba para ver si salia bien
 	cliente *c = *C;
 	char *tiposProductos[]={"Galletas","Snack","Cigarrillos","Caramelos","Bebidas"};
 	int i,j;
@@ -75,7 +75,7 @@ void cargarproductos(cliente **C, int per){
 		printf("espacio insuficiente");
 	}
 
-		c[per].Productos->ProductoID = i;
+		c[per].Productos->ProductoID = per;
 		j = rand()%5;
 		c[per].Productos->TipoProducto = (char*)malloc((strlen(tiposProductos[j])+1)*sizeof(char));
 		if (c->Productos->TipoProducto == NULL){
@@ -86,30 +86,56 @@ void cargarproductos(cliente **C, int per){
 		c[per].Productos->PrecioUnitario =10 + rand() % (100-10); 
 }
 
+*/
+
+
+void cargarproductos(cliente **C, int per){
+	cliente *c = *C;
+	char *tiposProductos[]={"Galletas","Snack","Cigarrillos","Caramelos","Bebidas"};
+	int i,j;
+	c[per].Productos = malloc((c[per].CantidadProductosAPedir)*sizeof(c[per].Productos));
+	
+	if (c[per].Productos == NULL){
+		printf("espacio insuficiente");
+	}
+	
+	for(i=0;i<c[per].CantidadProductosAPedir;i++){
+		c[per].Productos[i].ProductoID = per;
+		j = rand()%5;
+		c[per].Productos[i].TipoProducto = (char*)malloc((strlen(tiposProductos[j])+1)*sizeof(char));
+		if (c[per].Productos[i].TipoProducto == NULL){
+					printf("espacio insuficiente");
+				}
+		strcpy(c[per].Productos[i].TipoProducto,tiposProductos[j]);
+		c[per].Productos[i].Cantidad = rand() %10+1;
+		c[per].Productos[i].PrecioUnitario =10 + rand() % (100-10); 
+	}
+		
+}
+
 
 void mostrar(cliente **C,int a){
 	cliente *c = *C;
-	int i=0;
+	int i=0,j;
+	float total;
 	
-	for(i=0; i <c->CantidadProductosAPedir;i++){		
+	for(i=0; i < a;i++){
+		total =0;		
 		printf("\nEl ID del cliene: %d", c[i].ClienteID);
 		printf("\nNombre del cliente: %s",c[i].NombreCliente);
 		printf("\nCantidad de productos a Pedir: %d",c[i].CantidadProductosAPedir);
-
-		printf("\nEl producto pedido es: %s",c[i].Productos->TipoProducto);
-		printf("\nEl ID del producto es: %d",c[i].Productos->ProductoID);
-		printf("\nLa cantidad del productos: %d",c[i].Productos->Cantidad);
-		printf("\nPrecio por unidad: %2.f",c[i].Productos->PrecioUnitario);
+		
+		for(j=0;j<c[i].CantidadProductosAPedir;j++){
+		printf("\nEl producto pedido es: %s",c[i].Productos[j].TipoProducto);
+		printf("\nEl ID del producto es: %d",c[i].Productos[j].ProductoID);
+		printf("\nLa cantidad del productos: %d",c[i].Productos[j].Cantidad);
+		printf("\nPrecio por unidad: %2.f",c[i].Productos[j].PrecioUnitario);
 		printf("\n");
-		calcularproducto(c[i].Productos->Cantidad,c[i].Productos->PrecioUnitario, i);
+		total = (c[i].Productos[j].Cantidad * c[i].Productos[j].PrecioUnitario) + total;
 		}
+		printf("el total a pagar: %f\n\n",total);	
+	}
 	
 }	
 
-void calcularproducto(int cantidad, int precio,int i){
-	float pagar=0;
-		
-	pagar = cantidad * precio;
-	printf("el total a pagar es %f: ",pagar);
-	printf("\n\n");
-}
+
